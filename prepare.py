@@ -1,0 +1,32 @@
+import csv
+import numpy as np
+import scipy.cluster.vq as v1
+
+
+vector=np.loadtxt(open("Book1.csv", "rb"), delimiter=",", skiprows=1)
+vector=v1.whiten(vector)
+#result=v1.kmeans(vector,7)
+result2 , label=v1.kmeans2(vector,100)
+#label2=label[2:1923]
+#label1=label[1924:3972]
+
+
+
+#print result2
+#print label
+#vector3=np.loadtxt(open("dataset.csv", "rb"), delimiter=",", skiprows=1)
+
+with open('outall.csv','w') as f:
+	with open('Book1.csv', 'rb') as csvfile:
+		spamreader = csv.reader(csvfile, delimiter=' ', quotechar='|')
+		for ele,row in zip(label,spamreader):
+			
+			row=str(row[0])
+			row=row.split(',')
+			j=result2[ele]
+			s=str(j[0])+","+str(j[1])#","+row[2]
+			
+		#print >> f,s
+			print s
+			s=""
+
